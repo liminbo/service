@@ -1,0 +1,32 @@
+// 定义项目 API 的 proto 文件 可以同时描述 gRPC API
+// protobuf 文件参考:
+//  - https://developers.google.com/protocol-buffers/
+syntax = "proto3";
+package go.micro.gateway.attachment.v1;
+// package 命名使用 {appid}.{version} 的方式, version 形如 v1, v2 ..
+
+import "google/api/annotations.proto";
+import "attachment.proto";
+
+/**
+ * @exclude
+ * This comment won't be rendered
+ */
+
+service AttachmentService {
+    // 根据attachment_id获取attachment详情
+    rpc AttachmentDetailByIds (go.micro.srv.attachment.v1.AttachmentDetailByIdsReq) returns (go.micro.srv.attachment.v1.AttachmentDetailByIdsRep){
+        option (google.api.http) = {
+            post: "/v1/attachmentDetailByIds"
+            body: "*"
+        };
+    };
+
+    // 增加附件
+    rpc AddAttachment (go.micro.srv.attachment.v1.AddAttachmentReq) returns (go.micro.srv.attachment.v1.AddAttachmentReqRep){
+        option (google.api.http) = {
+            post: "/v1/addAttachment"
+            body: "*"
+        };
+    };
+}

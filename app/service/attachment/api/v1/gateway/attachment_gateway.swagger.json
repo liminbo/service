@@ -1,0 +1,241 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "attachment_gateway.proto",
+    "version": "version not set"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/addAttachment": {
+      "post": {
+        "summary": "增加附件",
+        "operationId": "AttachmentService_AddAttachment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddAttachmentReqRep"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AddAttachmentReq"
+            }
+          }
+        ],
+        "tags": [
+          "AttachmentService"
+        ]
+      }
+    },
+    "/v1/attachmentDetailByIds": {
+      "post": {
+        "summary": "根据attachment_id获取attachment详情",
+        "operationId": "AttachmentService_AttachmentDetailByIds",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AttachmentDetailByIdsRep"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AttachmentDetailByIdsReq"
+            }
+          }
+        ],
+        "tags": [
+          "AttachmentService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "runtimeError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1AddAttachmentReq": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "attach_type": {
+          "$ref": "#/definitions/v1AttachType"
+        },
+        "image_ext": {
+          "$ref": "#/definitions/v1ImageExt"
+        },
+        "video_ext": {
+          "$ref": "#/definitions/v1VideoExt"
+        }
+      }
+    },
+    "v1AddAttachmentReqRep": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1AttachType": {
+      "type": "string",
+      "enum": [
+        "IMAGE",
+        "VIDEO"
+      ],
+      "default": "IMAGE"
+    },
+    "v1Attachment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "url": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "attach_type": {
+          "$ref": "#/definitions/v1AttachType"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "image_ext": {
+          "$ref": "#/definitions/v1ImageExt"
+        },
+        "video_ext": {
+          "$ref": "#/definitions/v1VideoExt"
+        }
+      }
+    },
+    "v1AttachmentDetailByIdsRep": {
+      "type": "object",
+      "properties": {
+        "attachment": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/v1Attachment"
+          }
+        }
+      }
+    },
+    "v1AttachmentDetailByIdsReq": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "v1ImageExt": {
+      "type": "object",
+      "properties": {
+        "w": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "h": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mime": {
+          "type": "string"
+        }
+      }
+    },
+    "v1VideoExt": {
+      "type": "object",
+      "properties": {
+        "w": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "h": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mime": {
+          "type": "string"
+        },
+        "cover": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

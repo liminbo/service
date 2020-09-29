@@ -1,0 +1,21 @@
+// protobuf 文件参考:
+//  - https://developers.google.com/protocol-buffers/
+syntax = "proto3";
+package go.micro.srv.attachment.v1;
+// package 命名使用 {appid}.{version} 的方式, version 形如 v1, v2 ..
+import "attachment.proto";
+
+/**
+ * @exclude
+ * 帖子服务
+ */
+service AttachmentService {
+
+    // 根据attachment_id获取attachment详情
+    rpc AttachmentDetailByIds (AttachmentDetailByIdsReq) returns (AttachmentDetailByIdsRep);
+
+    // 增加附件
+    rpc AddAttachment (AddAttachmentReq) returns (AddAttachmentReqRep);
+
+}
+

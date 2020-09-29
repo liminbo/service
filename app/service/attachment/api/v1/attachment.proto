@@ -1,0 +1,56 @@
+// protobuf 文件参考:
+//  - https://developers.google.com/protocol-buffers/
+syntax = "proto3";
+package go.micro.srv.attachment.v1;
+// package 命名使用 {appid}.{version} 的方式, version 形如 v1, v2 ..
+
+message Attachment{
+    int32 id = 1; // 附件id
+    string url  = 2; // 附件路径
+    int32 user_id = 3; //用户id
+    AttachType attach_type = 4; // 附件类型
+    int32 created_at = 5;
+    ImageExt image_ext = 6; // 图片扩展信息
+    VideoExt video_ext = 7; // 视频扩展信息
+}
+
+
+enum AttachType{
+    IMAGE = 0; // 图片
+    VIDEO = 1; // 视频
+}
+
+message ImageExt{
+    int32 w = 1; // 图片宽度
+    int32 h = 2; // 图片高度
+    string mime = 3; // 图片类型
+}
+
+message VideoExt{
+    int32 w = 1; // 视频宽度
+    int32 h = 2; // 视频高度
+    string mime = 3; // 视频类型
+    string cover = 4; // 视频封面图
+}
+
+message AttachmentDetailByIdsReq{
+    repeated int32 ids = 1;
+}
+
+
+message AddAttachmentReq{
+    string url = 1; // 附件地址
+    int32 user_id = 2; // 用户id
+    AttachType attach_type = 3; // 附件类型
+    ImageExt image_ext = 5; // 图片扩展信息
+    VideoExt video_ext = 6; // 视频扩展信息
+
+}
+
+message AttachmentDetailByIdsRep{
+    map<int32, Attachment> attachment = 1;
+}
+
+message AddAttachmentReqRep{
+    int32 id = 1;
+}
