@@ -15,7 +15,7 @@ func Benchmark_Detail(b *testing.B) {
 	ctx := context.Background()
 	microSerice := micro.NewService(
 		micro.Registry(consul.NewRegistry(func(options *registry.Options) {
-			options.Addrs = []string{"127.0..0.1:8500"}
+			options.Addrs = []string{"127.0.0.1:8500"}
 		})),
 		)
 	attachmentService := v1.NewAttachmentService(api.AppID, microSerice.Client())
